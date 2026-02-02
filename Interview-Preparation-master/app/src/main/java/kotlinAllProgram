@@ -1,0 +1,191 @@
+fun main() {
+    val kotlin = "🙂"
+    println(kotlin)
+    reverseString()
+    reverseWord()
+    targetCalculationAndIndexReturn()
+    higherOrderFunction("Test higher order function"){name->
+        println(name)
+        
+    }
+    higherOrderFunctionInline("test"){name->
+        println(name)
+       
+    }
+   val result = higherOrderFunctionAddition(1,2)
+    {a,b-> a+b
+      
+    }
+     println(result)
+     
+     higherOrderFunctionInlineRe<String>("reified"){name->
+         println(name)
+         
+     }
+     val myName = "D i m p a l"
+    println(myName.trim())
+    uniqueoccurences()
+    fibonacciSeries(10)
+    paranthesisCheck("()[]({}){}")
+     vowel()
+}
+fun fibonacciSeries(fibonacciSeries:Int)
+{
+    val numList = mutableListOf<Int>()
+    numList.add(0)
+    numList.add(1)
+    for(item in 2 until fibonacciSeries)
+    {
+        numList.add(numList[item-1]+numList[item-2])
+    }
+    println(numList)
+}
+fun vowel(){
+    val name = "Dimple"
+    var vowel=0
+    var consonent = 0
+    var digit =0
+    for(ch in name.lowercase()){
+    when(ch){
+        in 'a'..'z'->
+        if(ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u')
+        {
+            vowel++
+        }else{
+            consonent++
+        }
+       in '0'..'9'-> digit++
+    }
+}
+println("Vowel : $vowel")
+println("Consonent : $consonent")
+println("Digit : $digit")
+}
+fun paranthesisCheck(input:String)
+{
+    var list = java.util.Stack<Char>()
+    for(i in input)
+    {
+        when(i)
+        {
+            '(','{','[' -> list.push(i)
+            ')' -> if(list.isEmpty() || list.pop()!= '('){println("not balanced paranthesis");return}
+            
+            '}' -> if(list.isEmpty() || list.pop() != '{'){println("not balanced paranthesis");return}
+            
+            ']' -> if(list.isEmpty() || list.pop() != '['){println("not balanced paranthesis");return}
+        }
+    }
+    if(list.isEmpty())
+    {
+        println("balanced paranthesis")
+    }else{
+        println("not balanced paranthesis")
+    }
+}
+fun uniqueoccurences()
+{
+    val name = "madam"
+    var map = mutableMapOf<Char,Int>()
+    
+    for(ch in name)
+    {
+        map[ch] = map.getOrDefault(ch,0)+1
+    }
+   // name.forEach{ch->
+    //    map[ch] = map.getOrDefault(ch,0)+1
+    //}
+    name.forEach{v->
+        if(map[v] == 1){
+        println("$v->"+map[v])
+        }
+    }
+}
+fun String.trim():String
+{
+    return this.replace(" ","")
+}
+inline fun higherOrderFunctionInline(name:String, action:(String)->Unit)
+{
+    action(name)
+}
+
+inline fun <reified T> higherOrderFunctionInlineRe(name:Any, action:(Any)->Unit)
+{
+    action(name)
+}
+fun higherOrderFunction(name:String, action:(String)->Unit)
+{
+    action(name)
+}
+fun higherOrderFunctionAddition(a:Int, b:Int,action:(Int,Int)->Int):Int
+{
+    
+    return action(a,b)
+}
+fun targetCalculationAndIndexReturn(){
+   val listItem = listOf<Int>(2,7,11,2,5,4) 
+   val target = 9
+    var calTotal = 0
+    for (item in 0..listItem.size-1){
+        
+        if(item != listItem.size-1)
+        {
+            // calTotal = listItem[item] + listItem[item+1] target = 9 using addtion of two index 
+            calTotal = listItem[item] - listItem[item+1] // target = 9 using substraction of two index 
+            if(calTotal == target)
+            {
+                val nextIndex= item+1
+                println("$item , $nextIndex")
+            }
+        }
+    }
+}
+fun reverseString()
+{
+    val name = "Dimple"
+     val nameSurname = "Chavan"
+    var result = ""
+    var resultSur = ""
+    
+    //using for loop
+    for (ch in name)
+    {
+     result = ch+result   
+    }
+    //using forEach loop
+    nameSurname.forEach{ch->
+        resultSur = ch +resultSur
+    }
+    
+    
+    println(result)
+    println(resultSur)
+}
+fun reverseWord()
+{
+    val name = "Dimple am I"
+    val nameList = name.split(" ")
+     val nameSurname = "Chavan is surname my" 
+     val nameSurList = nameSurname.split(" ")
+    var result = ""
+    var resultSur = ""
+    //using for loop
+    for (ch in nameList.size-1 downTo 0)
+    {
+     result += nameList[ch]   
+        if(ch != 0)
+        {
+            result +=" "
+        }
+    }
+    //using forEach loop
+    nameSurList.forEach{ch->
+        resultSur = "$ch $resultSur"
+    }
+    
+    
+    println(result)
+    println(resultSur)
+}
+
